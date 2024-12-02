@@ -51,7 +51,13 @@ h2 {
     margin-bottom: 20px;
 }
 
-.add-field-button {
+.cropHeader-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-crop-button {
     background-color: #27ae60;
     color: white;
     border: none;
@@ -60,7 +66,7 @@ h2 {
     border-radius: 5px;
 }
 
-.add-field-button:hover {
+.add-crop-button:hover {
     background-color: #219653;
 }
 
@@ -70,19 +76,19 @@ h2 {
     overflow-x: auto;
 }
 
-.field-table {
+.crop-table {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
 }
 
-.field-table th, .field-table td {
+.crop-table th, .crop-table td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
-.field-table th {
+.crop-table th {
     background-color: #2980b9;
     color: white;
 }

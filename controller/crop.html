@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crops Management - Crop Monitoring System</title>
+    <link rel="icon" href="/assets/icons/logo-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/crop.css">
+</head>
+<body>
+    <div id="container" class="container">
+        <div id="navigation" class="navigation">
+            <ul>
+                <li><a href="index.html"><span class="icon"><img src="/assets/icons/CompanyLogo.png" class="logo"></span><span class="title">POS System</span></a></li>
+                <li><a href="index.html"><span class="icon"><ion-icon name="home-outline"></ion-icon></span><span class="title">Dashboard</span></a></li>
+                <li><a href="staff.html"><span class="icon"><ion-icon name="people-outline"></ion-icon></span><span class="title">Staff</span></a></li>
+                <li><a href="fields.html"><span class="icon"><ion-icon name="image-outline"></ion-icon></span><span class="title">Fields</span></a></li>
+                <li class="hovered"><a href="crop.html"><span class="icon"><ion-icon name="leaf-outline"></ion-icon></span><span class="title">Crops</span></a></li>
+                <li><a href="cropdetails.html"><span class="icon"><ion-icon name="stats-chart-outline"></ion-icon></span><span class="title">Crop Details</span></a></li>
+                <li><a href="vehicles.html"><span class="icon"><ion-icon name="car-outline"></ion-icon></span><span class="title">Vehicles</span></a></li>
+                <li><a href="equipments.html"><span class="icon"><ion-icon name="construct-outline"></ion-icon></span><span class="title">Equipments</span></a></li>
+                <li><a href="user.html"><span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span><span class="title">User</span></a></li>
+                <li><a href="signout.html"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span><span class="title">Sign Out</span></a></li>
+            </ul>
+        </div>
+
+        <div class="main">
+            <section id="CropsForm">
+                <div id="cropHeaderSection" class="cropHeader-section">
+                    <h2> Crops <span>Manage</span></h2>
+                    <button id="add-crop" class="add-crop-button">Add Crop Details</button>
+                </div>
+                <div class="table-container">
+                    <table class="crop-table">
+                        <thead>
+                            <tr>
+                                <th>Crop Code</th>
+                                <th>Common Name</th>
+                                <th>Scientific Name</th>
+                                <th>Category</th>
+                                <th>Season</th>
+                                <th>Field Code</th>
+                                <th>Crop Image</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with crop data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>
