@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipments Management</title>
+    <link rel="stylesheet" href="/css/equipment.css"> <!-- Link to your CSS -->
+</head>
+<body>
+    <section id="EquipmentsForm">
+        <div id="equipmentHeaderSection" class="equipmentHeader-section">
+            <h2> Equipments <span>Manage</span></h2>
+            <button id="add-equipment" class="add-equipment-button">Add Equipments</button>
+        </div>
+
+        <div class="equipment-register-form" id="equipment-register-form">
+            <div class="equipment-register-box">
+                <span id="equipment-register-close" class="equipment-register-close">&times;</span>
+                <h2 class="equipment-register-title">Register Equipment</h2>
+                <form id="equipment-form">
+                    <div class="equipment-form-row">
+                        <input type="text" id="equipment-name" name="equipment-name" placeholder="Equipment Name" required>
+                    </div>
+                    <div class="equipment-form-row">
+                        <select id="equipment-type" name="equipment-type" required>
+                            <option value="">Select Type</option>
+                            <option value="ELECTRICAL">ELECTRICAL</option>
+                            <option value="MECHANICAL">MECHANICAL</option>
+                        </select>
+                        <select id="equipment-status" name="equipment-status" required>
+                            <option value="">Select Status</option>
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="INACTIVE">INACTIVE</option>
+                        </select>
+                    </div>
+                    <div class="equipment-form-row">
+                        <select id="equipment-field-code" name="equipment-field-code">
+                            <option value="">Select Field Code</option>
+                            <option value="F0001">F0001</option>
+                        </select>
+                        <select id="equipment-staff-id" name="equipment-staff-id">
+                            <option value="">Select Staff ID</option>
+                        </select>
+                    </div>
+                    <button id="equipment-register-submit" type="submit" class="equipment-register-submit">Submit</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table class="equipment-table">
+                <thead>
+                    <tr>
+                        <th>Equipment ID</th>
+                        <th>Field Code</th>
+                        <th>Name</th>
+                        <th>Staff ID</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Rows with equipment data will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
+    <script src="/js/equipment.js"></script>
+</body>
+</html>

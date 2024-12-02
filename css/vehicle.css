@@ -1,232 +1,102 @@
+/* Vehicles Page Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+h2 {
+    color: #333;
+}
 
-/* Header section */
+/* Header Section */
 .vehicleHeader-section {
     display: flex;
-    flex-direction: row;
-    margin-top: 10px;
-}
-
-.vehicleHeader-section h2 {
-    margin-left: 40px;
-    font-size: 35px;
-    color: #375534;
-}
-
-.vehicleHeader-section h2 span {
-    font-size: 25px;
-    color: #6B9071;
+    justify-content: space-between;
+    align-items: center;
+    background: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
 .add-vehicle-button {
-    margin-left: 55%;
-    margin-top: 5px;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: bolder;
-    border-radius: 5px;
+    background: #28a745;
     color: white;
-    background: #6B9071;
-    border: 1px solid #6B9071;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .add-vehicle-button:hover {
-    cursor: pointer;
-    background: #AEC3B0;
-    color: #375534;
+    background: #218838;
 }
 
-/* registration form */
+/* Form Styles */
 .vehicle-register-form {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-form-row {
+    margin-bottom: 15px;
+}
+
+input[type="text"], input[type="email"], select, textarea {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
-.vehicle-register-form.active {
-    display: flex;
+button[type="submit"] {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.vehicle-register-box {
-    background: #fff;
-    border-radius: 10px;
-    width: 650px;
-    padding: 20px 30px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-    max-height: 90%;
-    overflow-y: auto;
-    position: relative;
+button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Table Styles */
+.table-container {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
 }
 
 /* Close Button */
 .vehicle-register-close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+    cursor: pointer;
     font-size: 24px;
-    font-weight: bold;
-    color: #6B9071;
-    cursor: pointer;
-    z-index: 1010;
-}
-
-.vehicle-register-close:hover {
-    color: #FF4A4A;
-}
-
-/* Form Title */
-.vehicle-register-title {
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: #6B9071;
-    border-bottom: 2px solid #6B9071;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-/* Form Rows */
-.vehicle-form-row {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 15px;
-}
-
-.vehicle-form-row input,
-.vehicle-form-row select,
-.vehicle-form-row textarea {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #AEC3B0;
-    border-radius: 5px;
-    font-size: 14px;
-    color: #6B9071;
-    background-color: #f9f9f9;
-}
-
-.vehicle-form-row input:focus,
-.vehicle-form-row select:focus,
-.vehicle-form-row textarea:focus {
-    outline: none;
-    border-color: #6B9071;
-    background-color: #E3EED4;
-}
-
-/* Full-Width Row */
-.vehicle-form-row.full-width {
-    flex-direction: column;
-}
-
-/* Submit Button */
-.vehicle-register-submit {
-    /* width: 100%;
-    padding: 12px;
-    background-color: #6B9071;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer; */
-    width: 150px; 
-    padding: 10px; 
-    font-size: 14px;
-    /* margin-left: 600px; */
-    font-weight: bold;
-    background-color: #6B9071;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    margin-left: 220px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    grid-column: span 3; 
-    justify-self: center;
-}
-
-.vehicle-register-submit:hover {
-    background-color: #55725b;
-}
-
-
-/* ------------------ vehicle Details Table ------------------ */
-/* Table Container */
-.table-container {
-    width: 95%;
-    height: 500px;
-    overflow: auto;
-    margin: 20px auto;
-    border: 1px solid #0F2A1D;
-    border-radius: 5px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Vehicle Table Styles */
-.vehicle-table {
-    width: 100%;
-    border-collapse: collapse;
-    color: #375534;
-    background-color: #AEC3B0;
-}
-
-/* Table Header and Data Cells */
-.vehicle-table th,
-.vehicle-table td {
-    padding: 10px;
-    border: 1px solid white;
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* Header Style */
-.vehicle-table th {
-    background-color: #6B9071;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-}
-
-/* Even Row Background Color */
-.vehicle-table tr:nth-child(even) {
-    background-color: #E3EED4;
-}
-
-/* Hover Effect for Rows */
-.vehicle-table tr:hover {
-    background-color: #6B9071;
-}
-
-
-/* Remove all button styles and only show icons */
-.update-button,
-.delete-button {
-    background: none; /* Remove background */
-    border: none; /* Remove border */
-    padding: 0; /* Remove padding */
-    cursor: pointer; /* Show pointer cursor */
-    color: #6B9071; /* Default icon color */
-    font-size: 20px; /* Icon size */
-    display: inline-block; /* Ensure icons are inline */
-}
-
-.update-button:hover,
-.delete-button:hover {
-    color: #375534; /* Change icon color on hover */
-}
-
-/* Ensure icon size is properly set */
-.update-button i,
-.delete-button i {
-    font-size: 20px; /* Icon size */
-    margin: 0; /* Remove any margin */
+    color: #333;
 }
