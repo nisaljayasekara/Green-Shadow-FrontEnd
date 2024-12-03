@@ -54,6 +54,43 @@
             </section>
         </div>
     </div>
+
+    <div id="crop-details-register-form" class="crop-details-register-form">
+        <div class="form-content">
+            <h3 class="crop-register-title">Register Crop</h3>
+            <button id="crop-details-register-close">Close</button>
+            <form id="crop-form">
+                <label for="crop-code">Crop Code:</label>
+                <input type="text" id="crop-code" required>
+
+                <label for="common-name">Common Name:</label>
+                <input type="text" id="common-name" required>
+
+                <label for="scientific-name">Scientific Name:</label>
+                <input type="text" id="scientific-name" required>
+
+                <label for="category">Category:</label>
+                <input type="text" id="category" required>
+
+                <label for="season">Season:</label>
+                <input type="text" id="season" required>
+
+                <label for="crop-field-codes">Field Code:</label>
+                <select id="crop-field-codes" required></select>
+
+                <label for="crop-observed-image">Crop Image:</label>
+                <input type="file" id="crop-observed-image">
+
+                <div id="crop-observed-image-preview-container" style="display: none;">
+                    <img id="crop-observed-image-preview" alt="Image Preview" />
+                    <button type="button" id="crop-remove-observed-image">Remove</button>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
     <script src="/js/crop.js"></script>
 </body>

@@ -5,76 +5,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const fieldForm = document.getElementById('field-form');
     const tableBody = document.querySelector('.field-table tbody');
     const formTitle = document.querySelector('.field-register-title');
-    const staffDropdown = document.getElementById('crop-field-code'); // Dropdown for staff IDs
     let currentFieldId = null; // To store the ID of the field being updated
 
-    const tags = document.querySelectorAll(".tag");
-    const selectedIdsInput = document.getElementById("selected-staff-ids");
-
-    tags.forEach(tag => {
-        tag.addEventListener("click", function () {
-            this.classList.toggle("selected");
-
-            const selectedTags = document.querySelectorAll(".tag.selected");
-            const selectedIds = Array.from(selectedTags).map(tag => tag.dataset.id);
-            selectedIdsInput.value = selectedIds.join(","); // Join selected IDs as a comma-separated string
-        });
-    });
-
-    const initializeImageHandlers = (inputId, previewContainerId, previewId, removeButtonId) => {
-        const input = document.getElementById(inputId);
-        const previewContainer = document.getElementById(previewContainerId);
-        const preview = document.getElementById(previewId);
-        const removeButton = document.getElementById(removeButtonId);
-
-        if (!input || !previewContainer || !preview || !removeButton) {
-            console.error(`Missing elements for ${inputId} preview functionality.`);
-            return;
-        }
-
-        input.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    preview.src = e.target.result;
-                    previewContainer.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        removeButton.addEventListener('click', () => {
-            input.value = ''; // Clear the file input
-            preview.src = ''; // Clear the preview image
-            previewContainer.style.display = 'none'; // Hide the preview container
-        });
-    };
-
-    initializeImageHandlers('field-image1', 'field-image-preview-container1', 'field-image-preview1', 'field-remove-image1');
-    initializeImageHandlers('field-image2', 'field-image-preview-container2', 'field-image-preview2', 'field-remove-image2');
-
+    // Function to open the field registration form
     const openForm = () => {
         fieldRegisterForm.classList.add('active');
     };
 
+    // Function to close the field registration form
     const closeForm = () => {
         fieldRegisterForm.classList.remove('active');
     };
 
+    // Event listener for the Add Field button
     if (addFieldButton) {
         addFieldButton.addEventListener('click', () => {
-            openForm();
-            formTitle.textContent = 'Register Field';
-            clearForm();
-            fetchStaff();
+            openForm(); // Open the form
+            formTitle.textContent = 'Register Field'; // Set the form title
+            clearForm(); // Clear any existing data in the form
+            fetchStaff(); // Fetch staff data for dropdown
         });
     }
 
+    // Function to clear the form
+    const clearForm = () => {
+        fieldForm.reset();
+        currentFieldId = null; // Reset the current field ID
+    };
+
+    // Event listener for closing the form
     if (closeFieldButton) {
         closeFieldButton.addEventListener('click', closeForm);
     }
 
+    // Close form when clicking outside
     window.addEventListener('click', (event) => {
         if (event.target === fieldRegisterForm) {
             closeForm();
@@ -104,11 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fields = await response.json();
                 tableBody.innerHTML = '';
                 fields.forEach(addFieldToTable);
-            } else if (response.status === 401) {
-                alert('Authentication failed. Please log in again.');
             } else {
-                const errorText = await response.text();
-                console.error('Failed to fetch fields:', errorText);
                 alert('Failed to fetch fields. Please try again later.');
             }
         } catch (error) {
@@ -134,11 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 const staff = await response.json();
                 populateStaffDropdown(staff);
-            } else if (response.status === 401) {
-                alert('Authentication failed. Please log in again.');
             } else {
-                const errorText = await response.text();
-                console.error('Failed to fetch staff:', errorText);
                 alert('Failed to fetch staff. Please try again later.');
             }
         } catch (error) {
@@ -148,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const populateStaffDropdown = (staff) => {
+        const staffDropdown = document.getElementById('crop-field-code');
         staffDropdown.innerHTML = '<option value="">Select Staff ID</option>';
         staff.forEach(staffMember => {
             const option = document.createElement('option');
@@ -198,9 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 closeForm();
                 currentFieldId = null;
             } else {
-                const errorText = await response.text();
-                console.error('Failed to save field:', response.status, errorText);
-                alert(`Failed to save field: ${response.statusText} (${response.status})`);
+                alert('Failed to save field. Please try again.');
             }
         } catch (error) {
             console.error('Error saving field:', error);
@@ -226,11 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.appendChild(row);
     };
 
-    const clearForm = () => {
-        fieldForm.reset();
-        currentFieldId = null;
-    };
-
     const openUpdateForm = (field) => {
         openForm();
         formTitle.textContent = 'Update Field';
@@ -252,20 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     option.selected = true;
                 }
             });
-        }
-
-        if (field.fieldImage1) {
-            const previewContainer1 = document.getElementById('field-image-preview-container1');
-            const preview1 = document.getElementById('field-image-preview1');
-            preview1.src = `data:image/png;base64,${field.fieldImage1}`;
-            previewContainer1.style.display = 'block';
-        }
-
-        if (field.fieldImage2) {
-            const previewContainer2 = document.getElementById('field-image-preview-container2');
-            const preview2 = document.getElementById('field-image-preview2');
-            preview2.src = `data:image/png;base64,${field.fieldImage2}`;
-            previewContainer2.style.display = 'block';
         }
     };
 
@@ -290,9 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 fetchFields();
             } else {
-                const errorText = await response.text();
-                console.error('Failed to delete field:', response.status, errorText);
-                alert(`Failed to delete field: ${response.statusText} (${response.status})`);
+                alert('Failed to delete field. Please try again.');
             }
         } catch (error) {
             console.error('Error deleting field:', error);

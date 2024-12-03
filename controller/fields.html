@@ -53,6 +53,38 @@
             </section>
         </div>
     </div>
+
+    <div id="field-register-form" class="field-register-form">
+        <div class="form-content">
+            <h3 class="field-register-title">Register Field</h3>
+            <button id="field-register-close">Close</button>
+            <form id="field-form">
+                <label for="field-name">Field Name:</label>
+                <input type="text" id="field-name" required>
+
+                <label for="latitude">Latitude:</label>
+                <input type="text" id="latitude" required>
+
+                <label for="longitude">Longitude:</label>
+                <input type="text" id="longitude" required>
+
+                <label for="field-extent-size">Extent Size:</label>
+                <input type="text" id="field-extent-size" required>
+
+                <label for="crop-field-code">Staff ID:</label>
+                <select id="crop-field-code" required></select>
+
+                <label for="field-image1">Field Image 1:</label>
+                <input type="file" id="field-image1">
+
+                <label for="field-image2">Field Image 2:</label>
+                <input type="file" id="field-image2">
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
     <script src="/js/field.js"></script>
 </body>

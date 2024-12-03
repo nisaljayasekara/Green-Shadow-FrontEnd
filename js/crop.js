@@ -1,26 +1,12 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Elements for the Crop Details Registration Form
     const cropDetailsRegisterForm = document.getElementById('crop-details-register-form');
-    const addCropDetailsButton = document.getElementById('add-cropdetails');
+    const addCropDetailsButton = document.getElementById('add-crop');
     const closeButton = document.getElementById('crop-details-register-close');
-
-    // Image input and preview mapping for crop details
-    const imageHandlers = [
-        {
-            input: document.getElementById('crop-observed-image'),
-            previewContainer: document.getElementById('crop-observed-image-preview-container'),
-            preview: document.getElementById('crop-observed-image-preview'),
-            removeButton: document.getElementById('crop-remove-observed-image'),
-        }
-    ];
-
-    // Dropdown Elements
+    const cropForm = document.getElementById('crop-form');
     const fieldCodesDropdown = document.getElementById('crop-field-codes');
-    const cropCodesDropdown = document.getElementById('crop-codes');
-    const staffIdsDropdown = document.getElementById('crop-staff-ids');
 
-    // Fetch data for field codes, crop codes, and staff IDs
+    // Fetch data for field codes
     const fetchData = async (endpoint, dropdownElement, placeholderText) => {
         try {
             const token = localStorage.getItem('jwtToken');
@@ -43,40 +29,65 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownElement.innerHTML = `<option value="">${placeholderText}</option>`;
         data.forEach(item => {
             const option = document.createElement('option');
-            option.value = item.code || item.staffId; // Adjust based on the object
-            option.textContent = item.code || item.staffId; // Adjust based on the object
+            option.value = item.code; // Adjust based on the object
+            option.textContent = item.code; // Adjust based on the object
             dropdownElement.appendChild(option);
         });
     };
 
     // Event listeners
     addCropDetailsButton.addEventListener('click', () => {
-        cropDetailsRegisterForm.style.display = 'flex';
+        cropDetailsRegisterForm.classList.add('active'); // Show the form
         fetchData('http://localhost:8080/api/v1/field', fieldCodesDropdown, 'Select Field Codes');
-        fetchData('http://localhost:8080/api/v1/crop', cropCodesDropdown, 'Select Crop Codes');
-        fetchData('http://localhost:8080/api/v1/staff', staffIdsDropdown, 'Select Staff IDs');
     });
 
     closeButton.addEventListener('click', () => {
-        cropDetailsRegisterForm.style.display = 'none';
+        cropDetailsRegisterForm.classList.remove('active'); // Hide the form
     });
 
-    imageHandlers.forEach(handler => {
-        handler.input.addEventListener('change', () => {
-            const file = handler.input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    handler.preview.src = reader.result;
-                    handler.previewContainer.style.display = 'flex';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+    cropForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent default form submission
 
-        handler.removeButton.addEventListener('click', () => {
-            handler.input.value = '';
-            handler.previewContainer.style.display = 'none';
-        });
+        const cropCode = document.getElementById('crop-code').value;
+        const commonName = document.getElementById('common-name').value;
+        const scientificName = document.getElementById('scientific-name').value;
+        const category = document.getElementById('category').value;
+        const season = document.getElementById('season').value;
+        const fieldCode = fieldCodesDropdown.value;
+        const cropImage = document.getElementById('crop-observed-image').files[0];
+
+        const formData = new FormData();
+        formData.append("cropCode", cropCode);
+        formData.append("commonName", commonName);
+        formData.append("scientificName", scientificName);
+        formData.append("category", category);
+        formData.append("season", season);
+        formData.append("fieldCode", fieldCode);
+        if (cropImage) {
+            formData.append("cropImage", cropImage, cropImage.name);
+        }
+
+        try {
+            const token = localStorage.getItem('jwtToken');
+            const response = await fetch('http://localhost:8080/api/v1/crop', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert('Crop details added successfully!');
+                cropForm.reset();
+                cropDetailsRegisterForm.classList.remove('active'); // Hide the form after submission
+                // Optionally, fetch and refresh the crop table here
+            } else {
+                alert('Failed to add crop details. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error adding crop details:', error);
+            alert('An error occurred while adding crop details.');
+        }
     });
 });

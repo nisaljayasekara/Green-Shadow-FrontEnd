@@ -51,6 +51,7 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* Button Styles */
 .add-field-button {
     background-color: #27ae60;
     color: white;
@@ -64,4 +65,7 @@ h2 {
     background-color: #219653;
 }
 
-/*
+/* Chart Styles */
+#polar-chart, #line-chart {
+    margin-top: 20px;
+}
