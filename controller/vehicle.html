@@ -57,13 +57,48 @@
                                 <td><button class="update-button">Update</button></td>
                                 <td><button class="delete-button">Delete</button></td>
                             </tr>
-                            <!-- Additional rows will be dynamically inserted here -->
                         </tbody>
                     </table>
                 </div>
             </section>
         </div>
+
+        <!-- Vehicle Registration Form -->
+        <div id="vehicle-register-form" class="vehicle-register-form">
+            <div class="form-container">
+                <span id="vehicle-register-close" class="close-button">&times;</span>
+                <h2 class="vehicle-register-title">Register Vehicle</h2>
+                <form id="vehicle-form">
+                    <label for="license-plate-number">License Plate Number:</label>
+                    <input type="text" id="license-plate-number" required>
+
+                    <label for="fuel-type">Fuel Type:</label>
+                    <input type="text" id="fuel-type" required>
+
+                    <label for="status">Status:</label>
+                    <input type="text" id="status" required>
+
+                    <label for="vehicle-category">Vehicle Category:</label>
+                    <input type="text" id="vehicle-category" required>
+
+                    <label for="staff-id">Staff ID:</label>
+<select id="staff-id" required>
+    <option value="" disabled selected>Select Staff ID</option> <!-- Placeholder option -->
+    <option value="S001">S001</option> <!-- Sample Staff ID -->
+    <option value="S002">S002</option> <!-- Another sample Staff ID -->
+    <option value="S003">S003</option> <!-- Another sample Staff ID -->
+</select>
+
+
+                    <label for="remarks">Remarks:</label>
+                    <textarea id="remarks"></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
     <script src="/js/vehicle.js"></script>
 </body>

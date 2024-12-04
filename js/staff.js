@@ -77,36 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Get form data
         const staffId = staffForm.dataset.staffId || null; // Retrieve staffId if updating
-        const firstName = document.getElementById('first_name').value.trim();
-        const lastName = document.getElementById('last_name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const contactNo = document.getElementById('contact_no').value.trim();
-        const dob = document.getElementById('dob').value.trim();
-        const joinedDate = document.getElementById('joined_date').value.trim();
-        const addressLine1 = document.getElementById('address_line1').value.trim();
-        const addressLine2 = document.getElementById('address_line2').value.trim();
-        const addressLine3 = document.getElementById('address_line3').value.trim();
-        const addressLine4 = document.getElementById('address_line4').value.trim();
-        const addressLine5 = document.getElementById('address_line5').value.trim();
-        const designation = document.getElementById('designation').value.trim();
-        const gender = document.getElementById('gender').value.trim();
-        const role = document.getElementById('role').value.trim();
-
         const staffData = {
-            firstName,
-            lastName,
-            email,
-            contactNo,
-            dob,
-            joinedDate,
-            addressLine1,
-            addressLine2,
-            addressLine3,
-            addressLine4,
-            addressLine5,
-            designation,
-            gender,
-            role,
+            firstName: document.getElementById('first_name').value.trim(),
+            lastName: document.getElementById('last_name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            contactNo: document.getElementById('contact_no').value.trim(),
+            dob: document.getElementById('dob').value.trim(),
+            joinedDate: document.getElementById('joined_date').value.trim(),
+            addressLine1: document.getElementById('address_line1').value.trim(),
+            addressLine2: document.getElementById('address_line2').value.trim(),
+            addressLine3: document.getElementById('address_line3').value.trim(),
+            addressLine4: document.getElementById('address_line4').value.trim(),
+            addressLine5: document.getElementById('address_line5').value.trim(),
+            designation: document.getElementById('designation').value.trim(),
+            gender: document.getElementById('gender').value.trim(),
+            role: document.getElementById('role').value.trim(),
         };
 
         try {
@@ -186,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate the form with staff data for update
     const populateUpdateForm = (staff) => {
+        staffForm.dataset.staffId = staff.staffId; // Store staff ID for updating
         document.getElementById('first_name').value = staff.firstName || '';
         document.getElementById('last_name').value = staff.lastName || '';
         document.getElementById('email').value = staff.email || '';
@@ -193,6 +179,47 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('dob').value = staff.dob || '';
         document.getElementById('joined_date').value = staff.joinedDate || '';
         document.getElementById('address_line1').value = staff.addressLine1 || '';
-        document.get
-    }
+        document.getElementById('address_line2').value = staff.addressLine2 || '';
+        document.getElementById('address_line3').value = staff.addressLine3 || '';
+        document.getElementById('address_line4').value = staff.addressLine4 || '';
+        document.getElementById('address_line5').value = staff.addressLine5 || '';
+        document.getElementById('designation').value = staff.designation || '';
+        document.getElementById('gender').value = staff.gender || '';
+        document.getElementById('role').value = staff.role || '';
+    };
+
+    // Function to delete a staff member
+    const deleteStaff = async (staffId) => {
+        if (!confirm('Are you sure you want to delete this staff member?')) return;
+
+        try {
+            const token = localStorage.getItem('jwtToken');
+            const response = await fetch(`http://localhost:8080/api/v1/staff/${staffId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                await fetchStaff(); // Reload the staff table
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to delete staff. Response text:', errorText);
+                alert(`Failed to delete staff: ${errorText}`);
+            }
+        } catch (error) {
+            console.error('Error deleting staff:', error);
+            alert(`An error occurred: ${error.message}`);
+        }
+    };
+
+    // Clear form fields
+    const clearForm = () => {
+        staffForm.reset();
+        delete staffForm.dataset.staffId; // Remove staff ID
+    };
+
+    // Initial fetch of staff data
+    fetchStaff();
 });

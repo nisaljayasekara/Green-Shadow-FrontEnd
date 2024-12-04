@@ -1,0 +1,156 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff; /* Light background */
+}
+
+.userHeader-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #2980b9; /* Blue background */
+    color: #ffffff; /* White text */
+}
+
+.add-user-button {
+    background-color: #27ae60; /* Green button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-user-button:hover {
+    background-color: #219653; /* Darker green on hover */
+}
+
+/* User Registration Form Styles */
+.user-register-form {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+}
+
+.user-register-form.active {
+    display: flex; /* Show when active */
+}
+
+.user-register-box {
+    background-color: #ffffff; /* White background for the form */
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px; /* Fixed width */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-register-title {
+    color: #2980b9; /* Blue color for the title */
+    margin-bottom: 20px;
+}
+
+.user-form-row {
+    margin-bottom: 15px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Input Styles */
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #2980b9; /* Blue border */
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    border-color: #3498db; /* Lighter blue on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Button Styles */
+.user-register-submit {
+    background-color: #2980b9; /* Blue button */
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%; /* Full width */
+    font-size: 16px;
+}
+
+.user-register-submit:hover {
+    background-color: #3498db; /* Lighter blue on hover */
+}
+
+/* Table Styles */
+.table-container {
+    margin-top: 20px;
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.user-table th, .user-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #2980b9; /* Blue header */
+    color: white;
+}
+
+.update-button,
+.delete-button {
+    background-color: #3498db; /* Lighter blue */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.update-button:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+.delete-button {
+    background-color: #e74c3c; /* Red for delete */
+}
+
+.delete-button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}

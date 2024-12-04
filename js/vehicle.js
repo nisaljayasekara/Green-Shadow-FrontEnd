@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.querySelector('.vehicle-table tbody');
     const staffIdDropdown = document.getElementById('staff-id');
     const formTitle = document.querySelector('.vehicle-register-title');
-    let currentVehicleId = null; // To store the ID of the vehicle being updated
+    let currentVehicleId = null;
 
     // Function to open the registration form
     const openForm = () => {
@@ -16,20 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to close the registration form
     const closeForm = () => {
         vehicleRegisterForm.classList.remove('active');
+        clearForm(); // Clear the form when closed
     };
 
     // Add event listeners for opening and closing the form
-    if (addVehicleButton) {
-        addVehicleButton.addEventListener('click', () => {
-            openForm();
-            formTitle.textContent = 'Register Vehicle'; // Reset title to "Register"
-            clearForm(); // Clear the form for new registration
-        });
-    }
+    addVehicleButton.addEventListener('click', () => {
+        openForm();
+        formTitle.textContent = 'Register Vehicle'; // Reset title to "Register"
+        clearForm(); // Clear the form for new registration
+    });
 
-    if (closeButton) {
-        closeButton.addEventListener('click', closeForm);
-    }
+    closeButton.addEventListener('click', closeForm);
 
     // Close the form when clicking outside it
     window.addEventListener('click', (event) => {
@@ -38,31 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Check if the user is authenticated
-    const isAuthenticated = () => {
-        const token = localStorage.getItem('jwtToken');
-        return token && token !== null;
-    };
-
-    // Fetch and display vehicle data from the backend
+    // Fetch and display vehicles from the backend
     const fetchVehicles = async () => {
         try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch('http://localhost:8080/api/v1/vehicles', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
+            const response = await fetch('http://localhost:8080/api/v1/vehicles');
             if (response.ok) {
                 const vehicles = await response.json();
-                tableBody.innerHTML = '';
-                vehicles.forEach(addVehicleToTable);
-            } else if (response.status === 401) {
-                alert('Authentication failed. Please log in again.');
+                tableBody.innerHTML = ''; // Clear the table
+                vehicles.forEach(addVehicleToTable); // Add each vehicle to the table
             } else {
-                const errorText = await response.text();
-                console.error('Failed to fetch vehicles:', errorText);
+                console.error('Failed to fetch vehicles:', await response.text());
                 alert('Failed to fetch vehicles. Please try again later.');
             }
         } catch (error) {
@@ -71,67 +53,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Fetch staff IDs and populate the dropdown
-    const fetchStaffIds = async () => {
-        try {
-            const token = localStorage.getItem('jwtToken');
-            const response = await fetch('http://localhost:8080/api/v1/staff', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (response.ok) {
-                const staffList = await response.json();
-                staffIdDropdown.innerHTML = `<option value="">Select Staff ID</option>`; // Clear existing options
-
-                // Filter out staff entries with undefined or null staffId
-                staffList
-                    .filter(staff => staff.staffId) // Exclude undefined or null staffId
-                    .forEach((staff) => {
-                        const option = document.createElement('option');
-                        option.value = staff.staffId;
-                        option.textContent = staff.staffId; // Only show staff ID
-                        staffIdDropdown.appendChild(option);
-                    });
-            } else {
-                console.error('Failed to fetch staff IDs:', await response.text());
-                alert('Failed to fetch staff IDs. Please try again later.');
-            }
-        } catch (error) {
-            console.error('Error fetching staff IDs:', error);
-            alert('An error occurred while fetching staff IDs.');
-        }
-    };
-
-    // Save vehicle data
+    // Save vehicle data (both for registration and updating)
     vehicleForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        if (!isAuthenticated()) {
-            alert('You must be logged in to register or update a vehicle');
-            return;
-        }
-
-        // Get form data
-        const licensePlateNumber = document.getElementById('license-plate-number').value.trim();
-        const fuelType = document.getElementById('fuel-type').value.trim();
-        const status = document.getElementById('status').value.trim();
-        const vehicleCategory = document.getElementById('vehicle-category').value.trim();
-        const staffId = staffIdDropdown.value;
-        const remarks = document.getElementById('remarks').value.trim();
-
         const vehicleData = {
-            licensePlateNumber,
-            fuelType,
-            status,
-            vehicleCategory,
-            staffId,
-            remarks,
+            licensePlateNumber: document.getElementById('license-plate-number').value.trim(),
+            fuelType: document.getElementById('fuel-type').value.trim(),
+            status: document.getElementById('status').value.trim(),
+            vehicleCategory: document.getElementById('vehicle-category').value.trim(),
+            staffId: document.getElementById('staff-id').value.trim(),
+            remarks: document.getElementById('remarks').value.trim(),
         };
 
         try {
-            const token = localStorage.getItem('jwtToken');
             let response;
 
             if (currentVehicleId) {
@@ -140,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
                     },
                     body: JSON.stringify(vehicleData),
                 });
@@ -150,25 +84,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
                     },
                     body: JSON.stringify(vehicleData),
                 });
             }
 
-            if (response.ok || response.status === 201) {
-                await fetchVehicles();
-                clearForm();
+            if (response.ok) {
+                await fetchVehicles(); // Reload the vehicles table
                 closeForm();
-                currentVehicleId = null; // Reset the vehicle ID after submission
             } else {
-                const errorText = await response.text();
-                console.error('Failed to save vehicle. Response text:', errorText);
-                alert(`Failed to save vehicle: ${errorText}`);
+                console.error('Failed to save vehicle:', await response.text());
+                alert('Failed to save vehicle. Please try again.');
             }
         } catch (error) {
             console.error('Error saving vehicle:', error);
-            alert(`An error occurred: ${error.message}`);
+            alert('An error occurred while saving the vehicle.');
         }
     });
 
@@ -176,15 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const addVehicleToTable = (vehicle) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${vehicle.vehicleCode || 'N/A'}</td>
+            <td>${vehicle.vehicleId || 'N/A'}</td>
             <td>${vehicle.vehicleCategory || 'N/A'}</td>
             <td>${vehicle.fuelType || 'N/A'}</td>
-            <td>${vehicle.licensePlateNumber || 'N/A'}</td>
             <td>${vehicle.status || 'N/A'}</td>
-            <td>${vehicle.staffId || 'N/A'}</td>
-            <td>${vehicle.remarks || 'N/A'}</td>
-            <td><span class="update-button"><i class="fas fa-edit"></i></span></td>
-            <td><span class="delete-button"><i class="fas fa-trash"></i></span></td>
+            <td>${vehicle.licensePlateNumber || 'N/A'}</td>
+            <td><button class="update-button">Update</button></td>
+            <td><button class="delete-button">Delete</button></td>
         `;
         row.querySelector('.update-button').addEventListener('click', () => {
             openForm();
@@ -192,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
             populateUpdateForm(vehicle);
         });
         row.querySelector('.delete-button').addEventListener('click', () => {
-            deleteVehicle(vehicle.vehicleCode);
+            deleteVehicle(vehicle.vehicleId);
         });
 
         tableBody.appendChild(row);
@@ -200,59 +128,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Populate the form with vehicle data for update
     const populateUpdateForm = (vehicle) => {
+        currentVehicleId = vehicle.vehicleId; // Store vehicle ID for updating
         document.getElementById('license-plate-number').value = vehicle.licensePlateNumber || '';
         document.getElementById('fuel-type').value = vehicle.fuelType || '';
         document.getElementById('status').value = vehicle.status || '';
         document.getElementById('vehicle-category').value = vehicle.vehicleCategory || '';
-        staffIdDropdown.value = vehicle.staffId || '';
+        document.getElementById('staff-id').value = vehicle.staffId || '';
         document.getElementById('remarks').value = vehicle.remarks || '';
-
-        currentVehicleId = vehicle.vehicleCode; // Set the ID of the vehicle being updated
     };
 
-    // Function to clear the form fields
+    // Function to delete a vehicle
+    const deleteVehicle = async (vehicleId) => {
+        if (!confirm('Are you sure you want to delete this vehicle?')) return;
+
+        try {
+            const response = await fetch(`http://localhost:8080/api/v1/vehicles/${vehicleId}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                await fetchVehicles(); // Reload the vehicles table
+            } else {
+                console.error('Failed to delete vehicle:', await response.text());
+                alert('Failed to delete vehicle. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error deleting vehicle:', error);
+            alert('An error occurred while deleting the vehicle.');
+        }
+    };
+
+    // Clear form fields
     const clearForm = () => {
         vehicleForm.reset();
-        currentVehicleId = null; // Reset the vehicle ID after submission
+        currentVehicleId = null; // Reset vehicle ID
     };
 
-    // Function to delete vehicle with confirmation
-    const deleteVehicle = async (vehicleCode) => {
-        if (!isAuthenticated()) {
-            alert('You must be logged in to delete a vehicle');
-            return;
-        }
-
-        const isConfirmed = confirm('Are you sure you want to delete this vehicle?');
-
-        if (isConfirmed) {
-            const token = localStorage.getItem('jwtToken');
-            try {
-                const response = await fetch(`http://localhost:8080/api/v1/vehicles/${vehicleCode}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                    },
-                });
-
-                if (response.ok) {
-                    alert('Vehicle deleted successfully');
-                    await fetchVehicles(); // Re-fetch the vehicles after deletion
-                } else {
-                    const errorText = await response.text();
-                    console.error('Failed to delete vehicle:', errorText);
-                    alert(`Failed to delete vehicle: ${errorText}`);
-                }
-            } catch (error) {
-                console.error('Error deleting vehicle:', error);
-                alert(`An error occurred: ${error.message}`);
-            }
-        } else {
-            console.log('Vehicle deletion canceled');
-        }
-    };
-
-    // Fetch vehicles and staff IDs on page load
+    // Initial fetch of vehicles data
     fetchVehicles();
-    fetchStaffIds();
 });
