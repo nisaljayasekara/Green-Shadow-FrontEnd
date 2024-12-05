@@ -1,99 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:400,800");
 
-/* Welcome Page */
-.carousel-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-    animation: background-carousel 30s infinite;
-    transition: background-image 1s ease-in-out;
-    z-index: 1; 
-}
-
-.carousel-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.description {
-    position: absolute;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    margin: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
-}
-
-.description h1 {
-    font-size: 2.5em;
-    margin: 0;
-}
-
-.description p {
-    font-size: 1.2em;
-    margin-top: 10px;
-    font-weight: 200;
-}
-
-.description p span {
-    font-size: larger;
-}
-
-.loginPageNavigateBtn {
-    margin-top: 20px;
-    width: 25%;
-    padding: 8px;
-    font-size: large;
-    font-weight: 500;
-    border-radius: 20px;
-    background: none;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    color: white;
-    border: 1px solid white;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.loginPageNavigateBtn:hover {
-    background-color: white;
-    color: black;
-}
-
-@keyframes background-carousel {
-    0% { background-image: url('/assests/images/WelcomeImage1.jpg'); }
-    20% { background-image: url('/assests/images/WelcomeImage2.jpg'); }
-    40% { background-image: url('/assests/images/WelcomeImage3.jpg'); }
-    60% { background-image: url('/assests/images/WelcomeImage4.jpg'); }
-    80% { background-image: url('/assests/images/WelcomeImage5.jpg'); }
-    100% { background-image: url('/assests/images/WelcomeImage5.jpg'); }
-}
-
-.carousel-container {
-    transition: transform 0.5s ease-in-out;
-}
-
-.swipe-left {
-    transform: translateX(-100%);
-}
-
-/* login Form */
 .loginForm-container{
     background: linear-gradient(
         rgba(0, 0, 0, 0.2), 
@@ -174,18 +79,6 @@ button:active{
 
 button:focus{
     outline: none;
-}
-
-/* back button */
-.back-btn{
-    margin-left: -1100px;
-    margin-top: -190px;
-    width: 40px
-}
-
-#login-form {
-    position: relative;
-    padding-bottom: 20px; 
 }
 
 /* Error message styles */
