@@ -3,37 +3,740 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Crop Monitoring System</title>
-    <link rel="icon" href="/assets/icons/logo-icon.png">
+    <title>Crop Monitoring System</title>
+    <link rel="icon" href="/assests/icons/logo-icon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/css/dashboardForm.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/staff.css">
+    <link rel="stylesheet" href="/css/field.css">
+    <link rel="stylesheet" href="/css/crop.css">
+    <link rel="stylesheet" href="/css/vehicle.css">
+    <link rel="stylesheet" href="/css/equipment.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/cropdetails.css">
 </head>
 <body>
     <div id="container" class="container">
-        <div id="navigation" class="navigation">   
+        <!-- ------------------------------------ Navgation Side Bar ------------------------------------ -->
+        <div id="navigation" class="navigation">
             <ul>
-                <li><a href="index.html"><span class="icon"><img src="/assets/icons/CompanyLogo.png" class="logo"></span><span class="title">POS System</span></a></li>
-                <li class="hovered"><a href="index.html"><span class="icon"><ion-icon name="home-outline"></ion-icon></span><span class="title">Dashboard</span></a></li>
-                <li><a href="staff.html"><span class="icon"><ion-icon name="people-outline"></ion-icon></span><span class="title">Staff</span></a></li>
-                <li><a href="fields.html"><span class="icon"><ion-icon name="image-outline"></ion-icon></span><span class="title">Fields</span></a></li>
-                <li><a href="crop.html"><span class="icon"><ion-icon name="leaf-outline"></ion-icon></span><span class="title">Crops</span></a></li>
-                <li><a href="cropdetails.html"><span class="icon"><ion-icon name="stats-chart-outline"></ion-icon></span><span class="title">Crop Details</span></a></li>
-                <li><a href="vehicle.html"><span class="icon"><ion-icon name="car-outline"></ion-icon></span><span class="title">Vehicles</span></a></li>
-                <li><a href="equipment.html"><span class="icon"><ion-icon name="construct-outline"></ion-icon></span><span class="title">Equipments</span></a></li>
-                <li><a href="user.html"><span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span><span class="title">User</span></a></li>
-                <li><a href="signout.html"><span class="icon"><ion-icon name="log-out-outline"></ion-icon></span><span class="title">Sign Out</span></a></li>
+                <li>
+                    <a href="#">
+                        <span class="title" style="font-size: 1.5em;font-weight: 500; margin-top: 15px;">POS System</span>
+                    </a>
+                </li>
+                <li class="hovered">
+					<a href="#" id="Dashboard-button">
+						<span class="title">Dashboard</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="StaffForm-button">
+						<span class="title" >Staff</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="FieldsForm-button">
+						<span class="title">Fields</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="CropsForm-button">
+						<span class="title">Crops</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="MonitoringForm-button">
+						<span class="title">Crop Details</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="VehiclesForm-button">
+						<span class="title">Vehicles</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="EquipmentsForm-button">
+						<span class="title">Equipments</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="UserForm-button">
+						<span class="icon"><ion-icon name="person-circle-outline"></ion-icon></span>
+						<span class="title">User</span>
+					</a>
+				</li>
+                <li>
+					<a href="#" id="SignOutForm-button">
+						<span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
+						<span class="title">Sign Out</span>
+					</a>
+				</li>
             </ul>
         </div>
 
         <div class="main">
-            <h2>Dashboard</h2>
-            <div id="polar-chart"></div>
-            <div id="line-chart"></div>
+            <!-- ------------------------------------ Dashboard Form ------------------------------------ -->
+             <section id="DashboardForm">
+                <div class="topbar">
+                    <div class="toggle">
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </div>
+                    <!-- search -->
+                    <div class="search">
+                        <label>
+                            <input type="text" placeholder="Search here">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </label>
+                    </div>
+                    <!-- settingsImg -->
+                    <div class="settings">
+                        <img src="/assests/icons/SettingsIcon.png">
+                    </div>
+                </div> 
+                   
+             </section>
+
+            <!-- ------------------------------------ Staff Form ------------------------------------ -->
+             <section id="StaffForm">
+                <div id="staffHeaderSection" class="staffHeader-section">
+                    <h2> Staff <span>Manage</span></h2>
+                    <button id="add-staff" class="add-staff-button">Add Staff Member</button>
+                </div>
+                
+                <!-- -------------- Add Staff Member Form -------------- -->
+                <div id="staffRegisterForm" class="staffRegisterForm">
+                    <div class="registerForm">
+                        <span id="staffRegisterForm-close" class="staff-close">&times;</span>
+                        <h2 id="registerTitle">Register Staff Member</h2>
+
+                        <form id="staff-form" class="staff-form">
+                            <div class="staff-form-row">
+                                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                            </div>
+                            
+                            <div class="staff-form-row">
+                                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="email" id="email" name="email" placeholder="Email" required>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="contact_no" name="contact_no" placeholder="Contact Number" required>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <label for="dob">Date of Birth</label>
+                                <input type="date" id="dob" name="dob" required>
+                            </div>
+                            
+                            <div class="staff-form-row">
+                                <label for="joined_date">Joined Date</label>
+                                <input type="date" id="joined_date" name="joined_date" required>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="address_line1" name="address_line1" placeholder="Address Number" required>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="address_line2" name="address_line2" placeholder="Lane">
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="address_line3" name="address_line3" placeholder="City">
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="address_line4" name="address_line4" placeholder="Province">
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="address_line5" name="address_line5" placeholder="Country">
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <input type="text" id="designation" name="designation" placeholder="Designation" required>
+                            </div>                            
+                
+                            <div class="staff-form-row">
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="FEMALE">FEMALE</option>
+                                    <option value="MALE">MALE</option>
+                                    <option value="OTHER">OTHER</option>
+                                </select>
+                            </div>
+                
+                            <div class="staff-form-row">
+                                <select id="role" name="role" required>
+                                    <option value="">Select Role</option>
+                                    <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                    <option value="MANAGER">MANAGER</option>
+                                    <option value="SCIENTIST">SCIENTIST</option>
+                                    <option value="OTHER">OTHER</option>
+                                </select>
+                            </div>
+
+                            <button id="staff-submit" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Staff Table -->
+                <div class="table-container">
+                    <table class="staff-table">
+                        <thead>
+                            <tr>
+                                <th>Staff Id</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Contact Number</th>
+                                <th>Date of Birth</th>
+                                <th>Joined Date</th>
+                                <th>Address Number</th>
+                                <th>Lane</th>
+                                <th>City</th>
+                                <th>Province</th>
+                                <th>Country</th>
+                                <th>Designation</th>
+                                <th>Gender</th>
+                                <th>Role</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows go here -->
+                        </tbody>
+                    </table>
+                </div>
+             </section>
+
+             <!-- ------------------------------------ Fields Form ------------------------------------ -->
+            <section id="FieldsForm">
+                <div id="fieldHeaderSection" class="fieldHeader-section">
+                    <h2> Fields <span>Manage</span></h2>
+                    <button id="add-field" class="add-field-button">Add Field Details</button>
+                </div>
+
+                <!-- Field Registration Form -->
+                <div class="field-register-form" id="field-register-form">
+                    <div class="field-register-box">
+                        <span id="field-register-close" class="field-register-close">&times;</span>
+                        
+                        <h2 class="field-register-title">Register Field</h2>
+                        
+                        <form id="field-form">
+                            <!-- Field Name and Extent Size -->
+                            <div class="field-form-row">
+                                <input type="text" id="field-name" name="fieldName" placeholder="Field Name" required>
+                                <input type="number" id="field-extent-size" name="extentSize" placeholder="Extent Size" step="0.1" required>
+                            </div>
+                        
+                            <!-- Latitude and Longitude -->
+                            <div class="field-form-row">
+                                <input type="number" id="latitude" name="latitude" placeholder="Latitude" step="0.000001" required>
+                                <input type="number" id="longitude" name="longitude" placeholder="Longitude" step="0.000001" required>
+                            </div>
+                        
+                            <!-- Image Upload Fields -->
+                            <div class="field-form-row">
+                                <div class="field-image-upload-group">
+                                    <label for="field-image1">Field Image 1</label>
+                                    <input type="file" id="field-image1" name="fieldImage1" accept="image/*" required>
+                                </div>
+                                <div class="field-image-upload-group">
+                                    <label for="field-image2">Field Image 2</label>
+                                    <input type="file" id="field-image2" name="fieldImage2" accept="image/*" required>
+                                </div>
+                            </div>
+                        
+                            <!-- Image Previews -->
+                            <div class="field-form-row">
+                                <div id="field-image-preview-container1" class="field-image-preview-container" style="display: none;">
+                                    <img id="field-image-preview1" class="field-image-preview" alt="Field Image Preview 1" />
+                                    <button type="button" id="field-remove-image1" class="field-remove-image-button">Remove</button>
+                                </div>
+                                <div id="field-image-preview-container2" class="field-image-preview-container" style="display: none;">
+                                    <img id="field-image-preview2" class="field-image-preview" alt="Field Image Preview 2" />
+                                    <button type="button" id="field-remove-image2" class="field-remove-image-button">Remove</button>
+                                </div>
+                            </div>
+                        
+                            <!-- Staff IDs Dropdown (Allow Multiple Selection) -->
+                            <div class="crop-form-row field-dropdown-row">
+                                <select id="staff-codes" name="staff-codes" multiple required>
+                                    <option value="">Select Staff IDs</option>
+                                    <!-- Dynamic options for staff IDs will be populated here -->
+                                </select>
+                            </div>
+                        
+                            <!-- Submit Button -->
+                            <button id="field-register-submit" type="submit" class="field-register-submit">Submit</button>
+                        </form>                        
+                    </div>
+                </div>
+
+                <!-- Field Table -->
+                <div class="table-container">
+                    <table class="field-table">
+                        <thead>
+                            <tr>
+                                <th>Field Id</th>
+                                <th>Field Name</th>
+                                <th>Extent Size</th>
+                                <th>Field Image 1</th>
+                                <th>Field Image 2</th>
+                                <th>Field Location</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Additional rows will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ------------------------------------ Crops Form ------------------------------------ -->
+            <section id="CropsForm">
+                <div id="cropHeaderSection" class="cropHeader-section">
+                    <h2> Crops <span>Manage</span></h2>
+                    <button id="add-crop" class="add-crop-button">Add Crop Details</button>
+                </div>
+
+                <!-- Crop Registration Form -->
+                <div class="crop-register-form" id="crop-register-form">
+                    <div class="crop-register-box">
+                        <span id="crop-register-close" class="crop-register-close">&times;</span>
+
+                        <h2 class="crop-register-title">Register Crop</h2>
+
+                        <form id="crop-form">
+                            <!-- Common and Scientific Name -->
+                            <div class="crop-form-row">
+                                <input type="text" id="crop-common-name" name="crop-common-name" placeholder="Common Name" required>
+                                <input type="text" id="crop-scientific-name" name="crop-scientific-name" placeholder="Scientific Name" required>
+                            </div>
+
+                            <!-- Season and Category -->
+                            <div class="crop-form-row">
+                                <input type="text" id="crop-season" name="crop-season" placeholder="Season">
+                                <input type="text" id="crop-category" name="crop-category" placeholder="Category">
+                            </div>
+
+                            <!-- Field Code Dropdown -->
+                            <div class="crop-form-row field-dropdown-row">
+                                <select id="crop-field-code-1" name="crop-field-code" required>
+                                    <option value="">Select Field Code</option>
+                                    <!-- Dynamic options for field codes -->
+                                </select>
+                            </div>
+
+                            <!-- Image Upload Field -->
+                            <div class="crop-form-row">
+                                <div class="crop-image-upload-group">
+                                    <label for="crop-image1">Crop Image</label>
+                                    <input type="file" id="crop-image1" name="cropImage1" accept="image/*" required>
+                                </div>
+                            </div>
+
+                            <!-- Image Preview -->
+                            <div class="crop-form-row">
+                                <div id="crop-image-preview-container1" class="crop-image-preview-container" style="display: none;">
+                                    <img id="crop-image-preview1" class="crop-image-preview" alt="Crop Image Preview" />
+                                    <button type="button" id="crop-remove-image1" class="crop-remove-image-button">Remove</button>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button id="crop-register-submit" type="submit" class="crop-register-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Crop Table -->
+                <div class="table-container">
+                    <table class="crop-table">
+                        <thead>
+                            <tr>
+                                <th>Crop Code</th>
+                                <th>Common Name</th>
+                                <th>Scientific Name</th>
+                                <th>Crop Image</th>
+                                <th>Category</th>
+                                <th>Season</th>
+                                <th>Field Code</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with crop data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ------------------------------------ Crop Details Form ------------------------------------ -->
+            <section id="CropDetailsForm">
+                <div id="cropdetailsHeaderSection" class="cropdetailsHeader-section">
+                    <h2> Crop  <span> Details </span></h2>
+                    <button id="add-cropdetails" class="add-cropdetails-button">Add Crop Details</button>
+                </div>
+            
+                <!-- Crop Details Registration Form -->
+                <div class="crop-details-register-form" id="crop-details-register-form">
+                    <div class="crop-details-register-box">
+                        <span id="crop-details-register-close" class="crop-details-register-close">&times;</span>
+            
+                        <h2 class="crop-details-register-title">Register Crop Details</h2>
+            
+                        <form id="crop-details-form">
+                            <!-- Log Date and Log Details -->
+                            <div class="crop-details-form-row">
+                                <input type="date" id="crop-log-date" name="crop-log-date" placeholder="Log Date" required>
+                                <input type="text" id="crop-log-details" name="crop-log-details" placeholder="Log Details" required>
+                            </div>
+            
+                            <!-- Field Codes Dropdown (Allow Multiple Selection) -->
+                            <div class="crop-form-row field-dropdown-row">
+                                <label for="crop-field-codes">Select Field Codes</label>
+                                <select id="crop-field-codes-001" name="crop-field-codes" multiple required>
+                                    <option value="">Select Field Codes</option>
+                                    <!-- Dynamic options for field codes will be populated here -->
+                                </select>
+                            </div>
+            
+                            <!-- Crop Codes Dropdown (Allow Multiple Selection) -->
+                            <div class="crop-form-row field-dropdown-row">
+                                <label for="crop-codes">Select Crop Codes</label>
+                                <select id="crop-codes-001" name="crop-codes" multiple required>
+                                    <option value="">Select Crop Codes</option>
+                                    <!-- Dynamic options for crop codes will be populated here -->
+                                </select>
+                            </div>
+            
+                            <!-- Staff IDs Dropdown (Allow Multiple Selection) -->
+                            <div class="crop-form-row field-dropdown-row">
+                                <label for="crop-staff-ids">Select Staff IDs</label>
+                                <select id="crop-staff-ids" name="crop-staff-ids" multiple required>
+                                    <option value="">Select Staff IDs</option>
+                                    <!-- Dynamic options for staff IDs will be populated here -->
+                                </select>
+                            </div>
+            
+                            <!-- Image Upload Field -->
+                            <div class="crop-details-form-row">
+                                <div class="crop-image-upload-group">
+                                    <label for="crop-observed-image">Observed Image</label>
+                                    <input type="file" id="crop-observed-image" name="crop-observed-image" accept="image/*">
+                                </div>
+                            </div>
+            
+                            <!-- Image Previews -->
+                            <div class="crop-details-form-row">
+                                <div id="crop-observed-image-preview-container" class="crop-image-preview-container" style="display: none;">
+                                    <img id="crop-observed-image-preview" class="crop-image-preview" alt="Observed Image Preview" />
+                                    <button type="button" id="crop-remove-observed-image" class="crop-remove-image-button">Remove</button>
+                                </div>
+                            </div>
+            
+                            <!-- Submit Button -->
+                            <button id="crop-details-register-submit" type="submit" class="crop-details-register-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="crop-details-table">
+                        <thead>
+                            <tr>
+                                <th>Log Date</th>
+                                <th>Log Code</th>
+                                <th>Log Details</th>
+                                <th>Observed Image</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with crop details data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+            </section>
+            
+            <!-- ------------------------------------ Vehicles Form ------------------------------------ -->
+             <section id="VehiclesForm">
+                <div id="vehicleHeaderSection" class="vehicleHeader-section">
+                    <h2> Vehicles <span>Manage</span></h2>
+                    <button id="add-vehicle" class="add-vehicle-button">Add Vehicles</button>
+                </div>
+
+                <!-- Vehicle Registration Form -->
+                <div class="vehicle-register-form" id="vehicle-register-form">
+                    <div class="vehicle-register-box">
+                        <span id="vehicle-register-close" class="vehicle-register-close">&times;</span>
+
+                        <h2 class="vehicle-register-title">Register Vehicle</h2>
+
+                        <form id="vehicle-form">
+                            <!-- Vehicle Code and License Plate Number -->
+                            <div class="vehicle-form-row">
+                                <input type="text" id="license-plate-number" name="license-plate-number" placeholder="License Plate Number" required>
+                            </div>
+
+                            <!-- Fuel Type and Status -->
+                            <div class="vehicle-form-row">
+                                <select id="fuel-type" name="fuel-type" required>
+                                    <option value="">Select Fuel Type</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Electric">Electric</option>
+                                    <!-- Add more options if needed -->
+                                </select>
+                                <select id="status" name="status" required>
+                                    <option value="">Select Status</option>
+                                    <option value="Active">ACTIVE</option>
+                                    <option value="Inactive">INACTIVE</option>
+                                </select>
+                            </div>
+
+                            <!-- Vehicle Category and Staff ID -->
+                            <div class="vehicle-form-row category-staff">
+                                <input type="text" id="vehicle-category" name="vehicle-category" placeholder="Vehicle Category" required>
+                                <select id="staff-id" name="staff-id" required>
+                                    <option value="">Select Staff ID</option>
+                                    <option value="S0001">S0001</option>
+                                </select>
+                            </div>
+
+                            <!-- Remarks -->
+                            <div class="vehicle-form-row full-width">
+                                <textarea id="remarks" name="remarks" placeholder="Remarks" rows="3"></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button id="vehicle-register-submit" type="submit" class="vehicle-register-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Vehicle Table -->
+                <div class="table-container">
+                    <table class="vehicle-table">
+                        <thead>
+                            <tr>
+                                <th>Vehicle Code</th>
+                                <th>Category</th>
+                                <th>Fuel Type</th>
+                                <th>License Plate</th>
+                                <th>Status</th>
+                                <th>Staff ID</th>
+                                <th>Remarks</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with vehicle data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+             </section>
+            
+            <!-- ------------------------------------ Equipments Form ------------------------------------ -->
+             <section id="EquipmentsForm">
+                <div id="equipmentHeaderSection" class="equipmentHeader-section">
+                    <h2> Equipments <span>Manage</span></h2>
+                    <button id="add-equipment" class="add-equipment-button">Add Equipments</button>
+                </div>
+
+                <!-- Equipment Registration Form -->
+                <div class="equipment-register-form" id="equipment-register-form">
+                    <div class="equipment-register-box">
+                        <span id="equipment-register-close" class="equipment-register-close">&times;</span>
+
+                        <h2 class="equipment-register-title">Register Equipment</h2>
+
+                        <form id="equipment-form">
+                            <!-- Equipment ID and Name -->
+                            <div class="equipment-form-row">
+                                <input type="text" id="equipment-name" name="equipment-name" placeholder="Equipment Name" required>
+                            </div>
+
+                            <!-- Type Dropdown and Status Dropdown -->
+                            <div class="equipment-form-row">
+                                <!-- Type Dropdown -->
+                                <div class="equipment-dropdown-group">
+                                    <label for="equipment-type"></label>
+                                    <select id="equipment-type" name="equipment-type" required>
+                                        <option value="">Select Type</option>
+                                        <option value="ELECTRICAL">ELECTRICAL</option>
+                                        <option value="MECHANICAL">MECHANICAL</option>
+                                    </select>
+                                </div>
+
+                                <!-- Status Dropdown -->
+                                <div class="equipment-dropdown-group">
+                                    <label for="equipment-status"></label>
+                                    <select id="equipment-status" name="equipment-status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="INACTIVE">INACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Field Code and Staff ID Dropdowns -->
+                            <div class="equipment-form-row">
+                                <!-- Field Code Dropdown -->
+                                <div class="equipment-dropdown-group">
+                                    <label for="equipment-field-code"></label>
+                                    <select id="equipment-field-code" name="equipment-field-code">
+                                        <option value="">Select Field Code</option>
+                                    </select>
+                                </div>
+
+                                <!-- Staff ID Dropdown -->
+                                <div class="equipment-dropdown-group">
+                                    <label for="equipment-staff-id"></label>
+                                    <select id="equipment-staff-id" name="equipment-staff-id">
+                                        <option value="">Select Staff ID</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button id="equipment-register-submit" type="submit" class="equipment-register-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Equipment Table -->
+                <div class="table-container">
+                    <table class="equipment-table">
+                        <thead>
+                            <tr>
+                                <th>Equipment ID</th>
+                                <th>Field Code</th>
+                                <th>Name</th>
+                                <th>Staff ID</th>
+                                <th>Status</th>
+                                <th>Type</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with equipment data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+             </section> 
+
+            <!-- ------------------------------------ User Form ------------------------------------ -->
+             <section id="UserForm">
+                <div id="userHeaderSection" class="userHeader-section">
+                    <h2> Users <span>Manage</span></h2>
+                    <button id="add-user" class="add-user-button">Add Users</button>
+                </div>
+
+                <!-- User Registration Form -->
+                <div class="user-register-form" id="user-register-form">
+                    <div class="user-register-box">
+                        <span id="user-register-close" class="user-register-close">&times;</span>
+                
+                        <h2 class="user-register-title">Register User</h2>
+                
+                        <form id="user-form">
+                            <!-- Email -->
+                            <div class="user-form-row">
+                                <input type="email" id="user-email" name="user-email" placeholder="Email" required>
+                            </div>
+                
+                            <!-- Password with Show/Hide Option -->
+                            <div class="user-form-row">
+                                <div class="password-container">
+                                    <input 
+                                        type="password" 
+                                        id="user-password" 
+                                        name="user-password" 
+                                        placeholder="Password" 
+                                        required>
+                                    <button 
+                                        type="button" 
+                                        id="toggle-password" 
+                                        class="toggle-password">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                
+                            <!-- Role Dropdown -->
+                            <div class="user-form-row">
+                                <div class="user-dropdown-group">
+                                    <label for="user-role"></label>
+                                    <select id="user-role" name="user-role" required>
+                                        <option value="">Select Role</option>
+                                        <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                        <option value="MANAGER">MANAGER</option>
+                                        <option value="OTHER">OTHER</option>
+                                        <option value="SCIENTIST">SCIENTIST</option>
+                                    </select>
+                                </div>
+                            </div>
+                
+                            <!-- Submit Button -->
+                            <button id="user-register-submit" type="submit" class="user-register-submit">Submit</button>
+                        </form>
+                    </div>
+                </div>                
+
+                <!-- User Table -->
+                <div class="table-container">
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Role</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows with user data will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+
+             </section>  
         </div>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/ionicons.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="/js/scripts.js"></script>
+
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.51.0/apexcharts.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/Navigation.js"></script>
+    <script src="/js/staff.js"></script>
+    <script src="/js/field.js"></script>
+    <script src="/js/crop.js"></script>
+    <script src="/js/vehicle.js"></script>
+    <script src="/js/equipment.js"></script>
+    <script src="/js/user.js"></script> 
+    <script src="/js/cropdetails.js"></script>
 </body>
 </html>

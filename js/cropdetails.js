@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cropDetailsRegisterForm = document.getElementById('crop-details-register-form');
-    const addCropDetailsButton = document.getElementById('add-crop');
+    const addCropDetailsButton = document.getElementById('add-cropdetails');
     const closeButton = document.getElementById('crop-details-register-close');
     const cropDetailsForm = document.getElementById('crop-details-form');
-    const tableBody = document.querySelector('.crop-table tbody');
-    let currentLogId = null; // To store the ID of the log being updated
+    const tableBody = document.querySelector('.crop-details-table tbody');
+    let currentLogId = null;
+
+    // Title element for the form
+    const formTitle = document.getElementById('form-title');
 
     // Image input and preview mapping
     const imageHandler = {
@@ -15,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Dropdown Elements
-    const fieldCodesDropdown = document.getElementById('crop-field-codes');
-    const cropCodesDropdown = document.getElementById('crop-codes');
+    const fieldCodesDropdown = document.getElementById('crop-field-codes-001');
+    const cropCodesDropdown = document.getElementById('crop-codes-001');
     const staffIdsDropdown = document.getElementById('crop-staff-ids');
 
     // Open the registration form
@@ -38,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cropDetailsForm.reset();
         currentLogId = null;
         imageHandler.previewContainer.style.display = 'none';
+        formTitle.textContent = 'Add Crop Details'; 
     };
 
     // Initialize image preview and removal functionality
@@ -73,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 populateDropdown(dropdownElement, data, placeholderText);
             } else {
                 alert('Failed to fetch data.');
@@ -86,8 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dropdownElement.innerHTML = `<option value="">${placeholderText}</option>`;
         data.forEach((item) => {
             const option = document.createElement('option');
-            option.value = item.code || item.staffId;
-            option.textContent = item.code || item.staffId;
+            option.value = item.cropCode || item.staffId || item.fieldCode;
+            option.textContent = item.cropCode || item.staffId || item.fieldCode;
             dropdownElement.appendChild(option);
         });
     };
@@ -116,18 +121,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const addLogToTable = (log) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${log.cropId || 'N/A'}</td>
-            <td>${log.cropName || 'N/A'}</td>
-            <td>${log.type || 'N/A'}</td>
-            <td>${log.area || 'N/A'}</td>
-            <td>${log.yield || 'N/A'}</td>
-            <td>${log.season || 'N/A'}</td>
-            <td><button class="update-button">Update</button></td>
-            <td><button class="delete-button">Delete</button></td>
+            <td>${log.logDate || 'N/A'}</td>
+            <td>${log.logCode || 'N/A'}</td>
+            <td>${log.logDetails || 'N/A'}</td>
+            <td><img src="data:image/png;base64,${log.observedImage || ''}" alt="Image" class="crop-image-table" /></td>
+            <td><span class="update-button"><i class="fas fa-edit"></i></span></td>
+            <td><span class="delete-button"><i class="fas fa-trash"></i></span></td>
         `;
-
+    
         row.querySelector('.update-button').addEventListener('click', () => openUpdateForm(log));
-        row.querySelector('.delete-button').addEventListener('click', () => deleteLog(log.cropId));
+        row.querySelector('.delete-button').addEventListener('click', () => deleteLog(log.logCode));
         tableBody.appendChild(row);
     };
 
@@ -135,7 +138,24 @@ document.addEventListener('DOMContentLoaded', () => {
     cropDetailsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const logDetails = document.getElementById('crop-log-details').value; 
+        const logDate = document.getElementById('crop-log-date').value;
+        const observedImage = document.getElementById('crop-observed-image').files[0];
+        const fieldCodes = document.getElementById('crop-field-codes-001').value;
+        const cropCodes = document.getElementById('crop-codes-001').value;
+        const staffIds = document.getElementById('crop-staff-ids').value;
+
         const formData = new FormData(cropDetailsForm);
+
+        formData.append("logDetails", logDetails);
+        formData.append("logDate", logDate);
+        if (observedImage) {
+            formData.append("observedImage", observedImage);
+        }
+        formData.append("fieldCodes", fieldCodes);
+        formData.append("cropCodes", cropCodes);
+        formData.append("staffIds", staffIds);
+
         const method = currentLogId ? 'PATCH' : 'POST';
         const url = `http://localhost:8080/api/v1/cropDetails${currentLogId ? `/${currentLogId}` : ''}`;
 
@@ -159,12 +179,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Delete a log
-    const deleteLog = async (cropId) => {
+    const deleteLog = async (logCode) => {
         if (!confirm('Are you sure you want to delete this log?')) return;
 
         try {
             const token = localStorage.getItem('jwtToken');
-            const response = await fetch(`http://localhost:8080/api/v1/cropDetails/${cropId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/cropDetails/${logCode}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` },
             });
@@ -183,12 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const openUpdateForm = (log) => {
         openForm();
         populateForm(log);
-        currentLogId = log.cropId;
+        currentLogId = log.logCode;
+        formTitle.textContent = 'Update Crop Details'; 
     };
 
     const populateForm = (log) => {
-        document.getElementById('crop-log-date').value = log.logDate || '';
-        document.getElementById('crop-log-details').value = log.logDetails || '';
+        document.getElementById('crop-log-date').value = log.logDate;
+        document.getElementById('crop-log-details').value = log.logDetails;
         fieldCodesDropdown.value = log.fieldCodes || '';
         cropCodesDropdown.value = log.cropCodes || '';
         staffIdsDropdown.value = log.staffIds || '';
@@ -197,5 +218,5 @@ document.addEventListener('DOMContentLoaded', () => {
     addCropDetailsButton.addEventListener('click', openForm);
     closeButton.addEventListener('click', closeForm);
 
-    fetchLogs(); // Initial fetch
+    fetchLogs();
 });

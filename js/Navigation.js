@@ -1,4 +1,3 @@
-
 document.getElementById("DashboardForm").style.display = "block"; 
 document.getElementById("StaffForm").style.display = "none";
 document.getElementById("FieldsForm").style.display = "none";
@@ -114,7 +113,7 @@ document.getElementById("SignOutForm-button").addEventListener("click", function
         document.getElementById("UserForm").style.display = "none";
 
         // Redirect to Sign-In page
-        window.location.href = "/signInForm.html";
+        window.location.href = "/SigninPage.html";
     } else {
         // Optionally handle if the user cancels the logout
         console.log("Logout canceled.");

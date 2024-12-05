@@ -1,155 +1,210 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
-.container {
-    display: flex;
-}
-
-/* Navigation Styles */
-.navigation {
-    width: 250px;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    height: 100vh;
-    padding: 20px 0;
-}
-
-.navigation ul {
-    list-style: none;
-    padding: 0;
-}
-
-.navigation ul li {
-    padding: 15px 20px;
-}
-
-.navigation ul li a {
-    color: #ecf0f1;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-}
-
-.navigation ul li a:hover,
-.navigation ul li.hovered a {
-    background-color: #34495e;
-}
-
-/* Main Content Styles */
+/* Header section */
 .equipmentHeader-section {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.equipmentHeader-section h2 {
+    margin-left: 40px;
+    font-size: 35px;
+    color: #2c3e50; /* Dark text */
+}
+
+.equipmentHeader-section h2 span {
+    font-size: 25px;
+    color: #bbdefb; /* Light blue */
 }
 
 .add-equipment-button {
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
+    margin-left: auto; /* Align button to the right */
+    margin-top: 5px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: bolder;
     border-radius: 5px;
+    color: white;
+    background: #2196f3; /* Blue */
+    border: 1px solid #2196f3;
 }
 
 .add-equipment-button:hover {
-    background-color: #219653;
-}
-
-/* Table Styles */
-.table-container {
-    margin-top: 20px;
-    overflow-x: auto;
-}
-
-.equipment-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-}
-
-.equipment-table th, .equipment-table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-.equipment-table th {
-    background-color: #2980b9;
-    color: white;
-}
-
-.update-button,
-.delete-button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 5px 10px;
     cursor: pointer;
-    border-radius: 5px;
+    background: #64b5f6; /* Lighter blue */
+    color: #ffffff;
 }
 
-.update-button:hover {
-    background-color: #2980b9;
-}
-
-.delete-button {
-    background-color: #e74c3c;
-}
-
-.delete-button:hover {
-    background-color: #c0392b;
-}
-
-/* Form Styles */
+/* Registration form */
 .equipment-register-form {
-    display: none; /* Initially hidden */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.8); /* Dark overlay */
+    z-index: 1000;
     justify-content: center;
     align-items: center;
 }
 
 .equipment-register-form.active {
-    display: flex; /* Show when active */
+    display: flex;
 }
 
 .equipment-register-box {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    width: 400px;
+    background: #ffffff;
+    border-radius: 10px;
+    width: 650px;
+    padding: 20px 30px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    max-height: 90%;
+    overflow-y: auto;
+    position: relative;
 }
 
+/* Close Button */
+.equipment-register-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2196f3; /* Blue */
+    cursor: pointer;
+    z-index: 1010;
+}
+
+.equipment-register-close:hover {
+    color: #ff5252; /* Red on hover */
+}
+
+/* Form Title */
 .equipment-register-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #2196f3; /* Blue */
+    border-bottom: 2px solid #2196f3;
+    padding-bottom: 10px;
     margin-bottom: 20px;
 }
 
+/* Form Rows */
 .equipment-form-row {
+    display: flex;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
 .equipment-form-row input,
-.equipment-form-row select {
-    width: 100%;
+.equipment-form-row select,
+.equipment-form-row textarea {
+    flex: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    width: 290px;
+    border: 1px solid #bbdefb; /* Light blue border */
     border-radius: 5px;
+    font-size: 14px;
+    color: #424242; /* Dark text */
+    background-color: #f5f5f5; /* Light background */
 }
 
+.equipment-form-row input:focus,
+.equipment-form-row select:focus,
+.equipment-form-row textarea:focus {
+    outline: none;
+    border-color: #1976d2; /* Focus border color */
+    background-color: #e3f2fd; /* Light blue background */
+}
+
+/* Full-Width Row */
+.equipment-form-row.full-width {
+    flex-direction: column;
+}
+
+/* Submit Button */
 .equipment-register-submit {
-    background-color: #27ae60;
+    width: 150px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #2196f3; /* Blue */
     color: white;
     border: none;
-    padding: 10px;
-    cursor: pointer;
     border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+}
+
+.equipment-register-submit:hover {
+    background-color: #64b5f6; /* Lighter blue */
+}
+
+/* Table Container Styling */
+.table-container {
+    width: 95%;
+    height: 500px; 
+    overflow: auto;
+    margin: 20px auto;
+    border: none; 
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* Equipment Table Styling */
+.equipment-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #2c3e50; /* Dark text */
+    background-color: #fff;
+}
+
+/* Table Header and Data Styling */
+.equipment-table th,
+.equipment-table td {
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Table Header Styling */
+.equipment-table th {
+    background-color: #2196f3; /* Blue header */
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.equipment-table tr:nth-child(even) {
+    background-color: #e3f2fd; /* Light blue */
+}
+
+.equipment-table tr:hover {
+    background-color: #bbdefb; /* Darker light blue */
+}
+
+/* Action Buttons */
+.update-button,
+.delete-button {
+    background: none; 
+    border: none; 
+    padding: 0; 
+    cursor: pointer; 
+    color: #2c3e50; /* Dark text */
+    font-size: 20px;
+    display: inline-block; 
+}
+
+.update-button:hover,
+.delete-button:hover {
+    color: #2196f3; /* Blue on hover */
 }
